@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cml-trust"
+version = "0.1.0a1"
+description = "Local external evidence notebook for CML continuity claims."
+readme = "README.md"
+requires-python = ">=3.10,<3.14"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE", "THIRD_PARTY_NOTICES"]
+authors = [{name = "Sherrie Joseph"}]
+keywords = ["continuity", "audit", "video", "evidence", "cml"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+]
+dependencies = ["cml-python-adapter>=0.1.2,<0.2"]
+
+[project.scripts]
+cmltrust = "cml_trust.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

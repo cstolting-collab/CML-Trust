@@ -1,0 +1,51 @@
+{
+  "inv_001": {
+    "statement": "The woman's identity, face, hair, clothing, earrings, and necklace remain appearance-continuous.",
+    "strength": "hard",
+    "scope": "both",
+    "required_for_completeness": true,
+    "governs": "always"
+  },
+  "inv_002": {
+    "statement": "Exactly one appearance-continuous coffee cup remains, preserving its white ceramic body, dark rim, single handle, coffee-bean emblem, shape, size, and scale.",
+    "strength": "hard",
+    "scope": "both",
+    "required_for_completeness": true,
+    "governs": "always"
+  },
+  "inv_003": {
+    "statement": "Both hands preserve plausible anatomy and finger count.",
+    "strength": "hard",
+    "scope": "both",
+    "required_for_completeness": true,
+    "governs": "always"
+  },
+  "inv_004": {
+    "statement": "The room, lighting direction, background geometry, and camera orientation remain continuous.",
+    "strength": "hard",
+    "scope": "both",
+    "required_for_completeness": true,
+    "governs": "always"
+  },
+  "inv_005": {
+    "statement": "The opening checkpoint has the cup held only by the anatomical left hand and the final checkpoint has it held only by the anatomical right hand, with the other hand open and separated.",
+    "strength": "hard",
+    "scope": "node",
+    "required_for_completeness": true,
+    "governs": "always"
+  },
+  "inv_006": {
+    "statement": "The complete transfer path is visible in one continuous shot and both hands briefly contact the same single cup before the original hand releases.",
+    "strength": "hard",
+    "scope": "span",
+    "required_for_completeness": true,
+    "governs": "always"
+  },
+  "inv_007": {
+    "statement": "The anatomical right receiving hand takes the lower side of the cup body with a side grip rather than using an underneath-palm grip or a newly appearing handle.",
+    "strength": "hard",
+    "scope": "span",
+    "required_for_completeness": true,
+    "governs": "always"
+  }
+}

@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Operation Coffee Cup — Blind Continuity Review</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #18212b;
+      --muted: #5d6874;
+      --paper: #fffdf8;
+      --panel: #ffffff;
+      --line: #d9d6cc;
+      --navy: #17324d;
+      --gold: #a97824;
+      --soft: #f3efe5;
+      --bad: #9b2c2c;
+      --good: #226b46;
+      --focus: #0b6aa2;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 16px/1.5 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    main {
+      width: min(980px, calc(100% - 32px));
+      margin: 32px auto 64px;
+    }
+
+    header {
+      border-top: 6px solid var(--navy);
+      border-bottom: 1px solid var(--line);
+      padding: 28px 0 24px;
+    }
+
+    h1, h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--navy);
+      letter-spacing: .01em;
+    }
+
+    h1 { margin: 0 0 8px; font-size: clamp(2rem, 5vw, 3.25rem); line-height: 1.05; }
+    h2 { margin: 0 0 12px; font-size: 1.5rem; }
+    p { margin: 8px 0; }
+    code { overflow-wrap: anywhere; }
+
+    .eyebrow {
+      color: var(--gold);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .lede { max-width: 760px; color: var(--muted); font-size: 1.08rem; }
+
+    .notice, section, .question {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+
+    .notice { margin: 24px 0; padding: 16px 18px; border-left: 5px solid var(--gold); }
+    section { margin: 20px 0; padding: 22px; }
+
+    label { display: block; font-weight: 700; margin: 14px 0 6px; }
+    input[type="text"], textarea, select {
+      width: 100%;
+      border: 1px solid #b8bec5;
+      border-radius: 8px;
+      padding: 10px 12px;
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+    }
+
+    textarea { min-height: 90px; resize: vertical; }
+    input:focus, textarea:focus, select:focus, button:focus {
+      outline: 3px solid color-mix(in srgb, var(--focus) 35%, transparent);
+      outline-offset: 2px;
+    }
+
+    .grid { display: grid; gap: 16px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .radio-row { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 8px; }
+    .radio-row label { display: inline-flex; align-items: center; gap: 6px; margin: 0; font-weight: 500; }
+
+    video {
+      width: 100%;
+      max-height: 70vh;
+      margin-top: 14px;
+      border-radius: 10px;
+      background: #0e1116;
+    }
+
+    .hash {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: var(--soft);
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .hash.good { color: var(--good); font-weight: 700; }
+    .hash.bad { color: var(--bad); font-weight: 700; }
+
+    #questions { display: grid; gap: 16px; }
+    .question { padding: 18px; }
+    .question h3 { margin: 0 0 6px; color: var(--navy); font-size: 1.08rem; }
+    .question .scope { color: var(--gold); font-size: .76rem; font-weight: 800; text-transform: uppercase; }
+    .conditional { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line); }
+    .conditional.active { display: block; }
+
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+    button {
+      border: 0;
+      border-radius: 9px;
+      padding: 12px 18px;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    button.primary { background: var(--navy); color: #fff; }
+    button.secondary { background: var(--soft); color: var(--ink); border: 1px solid var(--line); }
+    button:disabled { opacity: .5; cursor: not-allowed; }
+
+    #message { min-height: 24px; margin-top: 14px; font-weight: 700; }
+    #message.error { color: var(--bad); }
+    #message.success { color: var(--good); }
+
+    footer { margin-top: 30px; color: var(--muted); font-size: .88rem; }
+
+    @media (max-width: 700px) {
+      main { width: min(100% - 20px, 980px); margin-top: 14px; }
+      .grid { grid-template-columns: 1fr; }
+      section { padding: 17px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="eyebrow">CML-Trust observational audit</div>
+      <h1>Operation Coffee Cup</h1>
+      <p class="lede">Review one existing video against a neutral continuity checklist. This form records observations; it does not ask for a global “trusted” verdict.</p>
+    </header>
+
+    <div class="notice">
+      <strong>Claim boundary:</strong> This is a retrospective observational review. It does not claim that CML governed generation or that the audit plan existed before generation.
+    </div>
+
+    <section aria-labelledby="reviewer-heading">
+      <h2 id="reviewer-heading">1. Reviewer and independence</h2>
+      <label for="reviewer">Reviewer name or stable alias</label>
+      <input id="reviewer" type="text" autocomplete="off" required>
+
+      <div class="grid">
+        <div>
+          <label for="priorVerdict">Had you seen a prior verdict for this video?</label>
+          <select id="priorVerdict" required>
+            <option value="">Choose…</option>
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+          </select>
+        </div>
+        <div>
+          <label for="markedFrames">Had you seen marked or highlighted frames?</label>
+          <select id="markedFrames" required>
+            <option value="">Choose…</option>
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+          </select>
+        </div>
+        <div>
+          <label for="automatedAnalysis">Did you use AI or automated visual analysis?</label>
+          <select id="automatedAnalysis" required>
+            <option value="">Choose…</option>
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+          </select>
+        </div>
+        <div>
+          <label for="player">Video player/device</label>
+          <input id="player" type="text" placeholder="Example: Chrome on laptop">
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="evidence-heading">
+      <h2 id="evidence-heading">2. Load and watch the video</h2>
+      <p>Select the supplied Run 006 MP4. The browser calculates its SHA-256 locally and verifies that you reviewed the intended bytes.</p>
+      <label for="videoFile">Source video</label>
+      <input id="videoFile" type="file" accept="video/mp4,.mp4">
+      <div id="hashStatus" class="hash">No video selected.</div>
+      <video id="video" controls playsinline preload="metadata"></video>
+      <div class="grid">
+        <div>
+          <label for="normalSpeed">Watched completely at normal speed?</label>
+          <select id="normalSpeed" required>
+            <option value="">Choose…</option>
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+        </div>
+        <div>
+          <label for="frameStep">Used pause, slow playback, or frame stepping?</label>
+          <select id="frameStep" required>
+            <option value="">Choose…</option>
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="claims-heading">
+      <h2 id="claims-heading">3. Record each observation</h2>
+      <p>Judge each claim separately. A clean final frame cannot repair an earlier interval defect. Failed, uncertain, or unobserved answers require a description; failed and uncertain answers also require an approximate media time.</p>
+      <div id="questions"></div>
+    </section>
+
+    <section aria-labelledby="export-heading">
+      <h2 id="export-heading">4. Freeze and save</h2>
+      <label for="overallNotes">Additional reviewer notes</label>
+      <textarea id="overallNotes" placeholder="Optional. Do not guess generator intent."></textarea>
+      <div class="actions">
+        <button id="saveButton" class="primary" type="button">Save completed review</button>
+        <button id="resetButton" class="secondary" type="button">Clear form</button>
+      </div>
+      <div id="message" role="status" aria-live="polite"></div>
+    </section>
+
+    <footer>
+      Runs entirely in this browser. It makes no network requests. Export time uses the device clock and is not trusted time.
+    </footer>
+  </main>
+
+  <script>
+    "use strict";
+
+    const EXPECTED_VIDEO_SHA256 = "27af50dc6d7c2f5b0967deed1d55cd9290474f02faa6658317cbe988228615fe";
+    const PROFILE_SHA256 = "6691f55290442eb0716da44689588c46bdff1348f18e71e0144ace48c2b52afa";
+    const ALLOWED_RESULTS = ["observed_pass", "observed_fail", "unobserved", "uncertain"];
+    const QUESTIONS = [
+      {
+        id: "inv_001",
+        scope: "whole video",
+        text: "The same woman remains recognizable throughout, with continuous face, hair, clothing, earrings, and necklace."
+      },
+      {
+        id: "inv_002",
+        scope: "whole video",
+        text: "Exactly one appearance-continuous cup remains throughout: same white body, dark rim, one handle, emblem, shape, size, and scale."
+      },
+      {
+        id: "inv_003",
+        scope: "whole video",
+        text: "Both hands preserve believable anatomy and finger count throughout."
+      },
+      {
+        id: "inv_004",
+        scope: "whole video",
+        text: "Room geometry, lighting direction, background, and camera orientation remain continuous."
+      },
+      {
+        id: "inv_005_pre",
+        scope: "opening boundary",
+        text: "At the opening, the cup is held only by her anatomical left hand (screen-right), while her anatomical right hand (screen-left) is empty and separated."
+      },
+      {
+        id: "inv_005_post",
+        scope: "final boundary",
+        text: "At the final hold, the cup is held only by her anatomical right hand (screen-left), while her anatomical left hand (screen-right) is open, empty, and separated."
+      },
+      {
+        id: "inv_006",
+        scope: "transfer span",
+        text: "The complete transfer remains visible in one continuous shot, with both hands briefly contacting the same cup before the original hand releases."
+      },
+      {
+        id: "inv_007",
+        scope: "transfer span",
+        text: "The receiving anatomical right hand takes the lower side of the cup body with a side grip rather than an underneath-palm support grip."
+      }
+    ];
+
+    let selectedVideoHash = null;
+    let selectedVideoName = null;
+    let videoObjectUrl = null;
+
+    function booleanValue(id) {
+      const value = document.getElementById(id).value;
+      if (value === "true") return true;
+      if (value === "false") return false;
+      return null;
+    }
+
+    function hex(buffer) {
+      return Array.from(new Uint8Array(buffer), byte => byte.toString(16).padStart(2, "0")).join("");
+    }
+
+    function renderQuestions() {
+      const container = document.getElementById("questions");
+      QUESTIONS.forEach((question, index) => {
+        const article = document.createElement("article");
+        article.className = "question";
+        article.dataset.questionId = question.id;
+        article.innerHTML = `
+          <div class="scope">${question.scope}</div>
+          <h3>${index + 1}. ${question.text}</h3>
+          <div class="radio-row" role="radiogroup" aria-label="Result for ${question.id}">
+            ${ALLOWED_RESULTS.map(result => `
+              <label><input type="radio" name="result_${question.id}" value="${result}"> ${result.replaceAll("_", " ")}</label>
+            `).join("")}
+          </div>
+          <div class="conditional" id="detail_${question.id}">
+            <div class="grid">
+              <div>
+                <label for="time_${question.id}">Approximate media time or range</label>
+                <input id="time_${question.id}" type="text" placeholder="Example: 0:03–0:04">
+              </div>
+              <div>
+                <label for="notes_${question.id}">What was visibly observed?</label>
+                <textarea id="notes_${question.id}" placeholder="Describe pixels or movement; do not infer intent."></textarea>
+              </div>
+            </div>
+          </div>`;
+        container.appendChild(article);
+
+        article.querySelectorAll(`input[name="result_${question.id}"]`).forEach(input => {
+          input.addEventListener("change", event => {
+            const needsDetail = event.target.value !== "observed_pass";
+            document.getElementById(`detail_${question.id}`).classList.toggle("active", needsDetail);
+          });
+        });
+      });
+    }
+
+    async function loadVideo(file) {
+      const hashStatus = document.getElementById("hashStatus");
+      hashStatus.className = "hash";
+      hashStatus.textContent = "Calculating SHA-256 locally…";
+      selectedVideoHash = hex(await crypto.subtle.digest("SHA-256", await file.arrayBuffer()));
+      selectedVideoName = file.name;
+
+      if (videoObjectUrl) URL.revokeObjectURL(videoObjectUrl);
+      videoObjectUrl = URL.createObjectURL(file);
+      document.getElementById("video").src = videoObjectUrl;
+
+      if (selectedVideoHash === EXPECTED_VIDEO_SHA256) {
+        hashStatus.className = "hash good";
+        hashStatus.textContent = `Verified source video — SHA-256 ${selectedVideoHash}`;
+      } else {
+        hashStatus.className = "hash bad";
+        hashStatus.textContent = `Hash mismatch. Selected ${selectedVideoHash}; expected ${EXPECTED_VIDEO_SHA256}.`;
+      }
+    }
+
+    function collectResults(errors) {
+      return QUESTIONS.map(question => {
+        const selected = document.querySelector(`input[name="result_${question.id}"]:checked`);
+        if (!selected) {
+          errors.push(`${question.id}: choose a result.`);
+          return null;
+        }
+        const result = selected.value;
+        const mediaTime = document.getElementById(`time_${question.id}`).value.trim();
+        const notes = document.getElementById(`notes_${question.id}`).value.trim();
+        if (result !== "observed_pass" && !notes) {
+          errors.push(`${question.id}: describe why the claim did not pass.`);
+        }
+        if (["observed_fail", "uncertain"].includes(result) && !mediaTime) {
+          errors.push(`${question.id}: provide an approximate media time.`);
+        }
+        return {
+          invariant_id: question.id,
+          scope: question.scope,
+          statement: question.text,
+          result,
+          media_time: mediaTime || null,
+          notes
+        };
+      }).filter(Boolean);
+    }
+
+    function validateAndBuildSubmission() {
+      const errors = [];
+      const reviewer = document.getElementById("reviewer").value.trim();
+      if (!reviewer) errors.push("Enter a reviewer name or stable alias.");
+
+      ["priorVerdict", "markedFrames", "automatedAnalysis", "normalSpeed", "frameStep"].forEach(id => {
+        if (booleanValue(id) === null) errors.push(`Complete: ${document.querySelector(`label[for="${id}"]`).textContent}`);
+      });
+
+      if (!selectedVideoHash) errors.push("Select the supplied source video.");
+      if (selectedVideoHash && selectedVideoHash !== EXPECTED_VIDEO_SHA256) errors.push("The selected video does not match the expected SHA-256.");
+
+      const results = collectResults(errors);
+      if (errors.length) return { errors };
+
+      const priorVerdictSeen = booleanValue("priorVerdict");
+      const markedFramesSeen = booleanValue("markedFrames");
+      const automatedAnalysisUsed = booleanValue("automatedAnalysis");
+      return {
+        errors: [],
+        submission: {
+          kind: "blind_review_submission",
+          schema_version: "gate3.review.v3",
+          review_id: `review_${Date.now()}`,
+          reviewer,
+          exported_at: new Date().toISOString(),
+          time_authority: "browser_device_clock_untrusted",
+          claim_class: "retrospective_observational_review",
+          plan_conformance_at_generation_claimed: false,
+          independence: {
+            prior_verdict_seen: priorVerdictSeen,
+            prior_marked_frames_seen: markedFramesSeen,
+            automated_visual_analysis_used: automatedAnalysisUsed,
+            blind_eligible: !priorVerdictSeen && !markedFramesSeen && !automatedAnalysisUsed
+          },
+          viewing_conditions: {
+            player_or_device: document.getElementById("player").value.trim(),
+            normal_speed_view_completed: booleanValue("normalSpeed"),
+            pause_slow_or_frame_step_used: booleanValue("frameStep")
+          },
+          evidence: {
+            video_filename: selectedVideoName,
+            video_sha256: selectedVideoHash,
+            expected_video_sha256: EXPECTED_VIDEO_SHA256,
+            video_hash_verified: selectedVideoHash === EXPECTED_VIDEO_SHA256,
+            review_profile_sha256: PROFILE_SHA256
+          },
+          results,
+          reviewer_notes: document.getElementById("overallNotes").value.trim()
+        }
+      };
+    }
+
+    function showMessage(text, type) {
+      const message = document.getElementById("message");
+      message.textContent = text;
+      message.className = type;
+    }
+
+    function saveReview() {
+      const { errors, submission } = validateAndBuildSubmission();
+      if (errors.length) {
+        showMessage(errors.join(" "), "error");
+        return;
+      }
+      const blob = new Blob([JSON.stringify(submission, null, 2) + "\n"], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${submission.review_id}-completed.json`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      showMessage("Review frozen and downloaded. Return the downloaded JSON file before reading prior findings.", "success");
+    }
+
+    document.getElementById("videoFile").addEventListener("change", event => {
+      const file = event.target.files[0];
+      if (file) loadVideo(file).catch(error => showMessage(`Unable to read video: ${error.message}`, "error"));
+    });
+    document.getElementById("saveButton").addEventListener("click", saveReview);
+    document.getElementById("resetButton").addEventListener("click", () => {
+      if (window.confirm("Clear all entered review data?")) window.location.reload();
+    });
+
+    renderQuestions();
+  </script>
+</body>
+</html>

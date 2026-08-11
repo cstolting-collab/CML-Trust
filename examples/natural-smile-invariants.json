@@ -1,0 +1,23 @@
+{
+  "inv_001": {
+    "statement": "The reviewed character remains appearance-continuous across the scene.",
+    "strength": "hard",
+    "scope": "both",
+    "required_for_completeness": true,
+    "governs": "always"
+  },
+  "inv_002": {
+    "statement": "The reviewed world remains geometrically continuous across the scene.",
+    "strength": "hard",
+    "scope": "both",
+    "required_for_completeness": true,
+    "governs": "always"
+  },
+  "inv_003": {
+    "statement": "The smile reaction remains advisory unless its trigger and interval are directly reviewed.",
+    "strength": "advisory",
+    "scope": "span",
+    "required_for_completeness": false,
+    "governs": "always"
+  }
+}

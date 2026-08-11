@@ -1,0 +1,8 @@
+◎C operation_coffee_cup_run006 {
+  □L target=character
+  □L target=world
+  □L target=coffee_cup
+  ~F target=camera mode=continuous
+  |P duration=1000ms
+  →T to=right_hand_only mode=visible_transfer
+}

@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.cml-trust/
+build/
+dist/
+release/artifacts/
+integration/**/*.jsonl
+integration/**/*.zip
+integration/**/*.png
+integration/**/frames/
+integration/**/sheets/
+integration/gate3_results/reviewer_001_raw.md

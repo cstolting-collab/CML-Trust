@@ -1,0 +1,8 @@
+CML-Trust does not vendor third-party source code in this distribution.
+
+Runtime and development tools are obtained separately and retain their own
+licenses. These include Python, Node.js, the CML Python Adapter, the CML
+Reference Compiler, setuptools, wheel, and optional FFmpeg/ffprobe tooling.
+
+Generated media used in integration evidence is not included in the Python
+wheel and remains subject to its own applicable terms.

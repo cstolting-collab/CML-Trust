@@ -1,0 +1,8 @@
+include LICENSE
+include NOTICE
+include THIRD_PARTY_NOTICES
+include CHANGELOG.md
+recursive-include docs *.md
+recursive-include examples *.cml *.json
+recursive-include review *.html
+recursive-include tests *.py
