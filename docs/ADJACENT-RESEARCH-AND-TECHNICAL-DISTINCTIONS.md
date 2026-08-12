@@ -2,7 +2,7 @@
 
 ## CML, LUFF, Trusted Checkpoints, and CML-Trust
 
-**Status:** Working research note, version 0.1  
+**Status:** Working research note, version 0.2  
 **Date:** 2026-08-11  
 **Purpose:** Identify relevant prior research and standards while stating where
 the CML architecture is technically different.  
@@ -76,13 +76,14 @@ implements:
 It does **not** currently implement LUFF execution, generator integration,
 event-phase certification, bridge repair, a residual audio-clock ledger,
 multi-validator fusion, trusted timestamps, or tamper-proof storage.
+The alpha neither implements nor tests a LUFF `0.05` coefficient.
 
 ## 3. Adjacent research
 
 ### 3.1 Event boundaries and the segmentation of continuous experience
 
-Research associated with Harvard and Massachusetts General Hospital reports
-that temporal structure plays a major role in understanding everyday events.
+Research in cognitive neuroscience reports that temporal structure plays a
+major role in understanding everyday events.
 Observers divide ongoing activity into meaningful parts, and brain activity is
 time-locked to salient event boundaries during both intentional segmentation
 and passive viewing.
@@ -105,19 +106,20 @@ or certify its outputs.
 Sources:
 
 - Zacks et al., “Human brain activity time-locked to perceptual event
-  boundaries,” *Nature Neuroscience* (2001), [Harvard/MGH publication
-  record](https://rabi.nmr.mgh.harvard.edu/node/3494).
+  boundaries,” *Nature Neuroscience* (2001), [journal article; authors were
+  affiliated with Washington
+  University](https://www.nature.com/articles/nn0601_651).
 - Zheng et al., “Neurons detect cognitive boundaries to structure episodic
   memories in humans,” *Nature Neuroscience* (2022), [Harvard Medical School
   publication record](https://eye.hms.harvard.edu/publications/neurons-detect-cognitive-boundaries-structure-episodic-memories-humans).
 
 ### 3.2 Gesture and communication before or alongside words
 
-Harvard-hosted developmental research found that children's early gesture use
-predicted later vocabulary size even after accounting for early spoken-word
-use. Related Harvard educational material describes pointing as a way for
-children to communicate and elicit verbal information before they can produce
-the corresponding words.
+Developmental research by University of Chicago authors found that children's
+early gesture use predicted later vocabulary size even after accounting for
+early spoken-word use. Related Harvard educational material describes
+pointing as a way for children to communicate and elicit verbal information
+before they can produce the corresponding words.
 
 Harvard's Center on the Developing Child also describes “serve and return” as
 contingent, reciprocal interaction that begins before babies can talk.
@@ -134,8 +136,11 @@ requiring shared contact during an object transfer.
 Sources:
 
 - Rowe, Özçalışkan, and Goldin-Meadow, “Learning words by hand: Gesture's role
-  in predicting vocabulary development” (2008), [Harvard DASH
-  record](https://dash.harvard.edu/entities/publication/73120378-db78-6bd4-e053-0100007fdf3b).
+  in predicting vocabulary development” (2008), [journal article; authors
+  were affiliated with the University of
+  Chicago](https://journals.sagepub.com/doi/10.1177/0142723707088310). A copy
+  is also [hosted by Harvard
+  DASH](https://dash.harvard.edu/entities/publication/73120378-db78-6bd4-e053-0100007fdf3b).
 - Center on the Developing Child at Harvard University, [“5 Steps for
   Brain-Building Serve and
   Return”](https://developingchild.harvard.edu/resources/videos/how-to-5-steps-for-brain-building-serve-and-return/).
@@ -259,6 +264,59 @@ Source:
 - Li, “Mechanistic Control of Language Models” (2025), [Harvard DASH
   record](https://dash.harvard.edu/items/23c45a6c-b171-428b-9fa4-723e73077026).
 
+### 3.8 Multimedia metadata and timeline annotation
+
+Established media standards already describe audiovisual resources through
+timeline positions, durations, parts, timed annotations, and structural
+metadata. EBUCore 1.10, for example, defines video and audio time-point
+references and describes ways to localize editorial parts, props, timed text,
+actions, and emotions on an audiovisual timeline. Timed-text standards likewise
+associate content and styling with explicit temporal intervals.
+
+**Relevance to CML:** These systems demonstrate that timed-media intervals,
+events, objects, and annotations are established technical concepts. They are
+important prior art for any claim that CML alone introduced time-addressed
+media description.
+
+**Technical distinction:** Multimedia metadata standards primarily describe,
+exchange, locate, or present media information. The proposed CML-family
+synthesis adds plan-scoped continuity obligations, content-bound human
+observations, checkpoint/span coverage, derived completeness or failure, and
+non-erasing revocation. CML-Trust does not currently implement or claim
+conformance with EBUCore, MPEG-7, or TTML.
+
+Sources:
+
+- European Broadcasting Union, [EBUCore Metadata Set, Tech 3293 v1.10
+  (2020)](https://tech.ebu.ch/docs/tech/tech3293.pdf).
+- W3C, [Timed Text Markup Language 2 (TTML2), W3C Recommendation](https://www.w3.org/TR/ttml2/).
+
+### 3.9 Temporal logic and runtime verification
+
+Temporal logics provide formal ways to state properties that must hold across
+ordered executions, timed behaviors, or continuous signals. Signal Temporal
+Logic was introduced for specifying and monitoring temporal properties of
+continuous signals, including automated checks over bounded traces.
+
+**Relevance to CML:** Statements such as “a condition holds throughout an
+interval,” “one state must precede another,” or “an event must eventually
+occur” have mature formal relatives. CML's temporal obligations therefore
+need direct semantic comparison with temporal-logic and runtime-verification
+systems.
+
+**Technical distinction:** CML-Trust `0.1.0a1` evaluates a small,
+domain-specific evidence model over externally rendered media and human review
+records. It is not an LTL, MTL, MITL, or STL parser, theorem prover, model
+checker, or signal monitor. Any future formal-verification claim would require
+defined CML semantics and an implementation that can be compared against those
+systems.
+
+Source:
+
+- Maler and Nickovic, “Monitoring Temporal Properties of Continuous Signals”
+  (2004), [institutional publication
+  record](https://research-explorer.ista.ac.at/record/4372).
+
 ## 4. Technical-distinction matrix
 
 | Adjacent field | Established neighboring idea | CML-family distinction |
@@ -270,6 +328,8 @@ Source:
 | Distributed event ordering | Causal order is distinct from physical time | Separate plan schedule, observed occurrence, media PTS, local timestamps, and hashes |
 | W3C provenance | Entities, activities, agents, plans, and derivations can be recorded | Specialized append-only continuity evidence and derived release-profile claims |
 | Mechanistic model control | Internal representations can provide surfaces for intervention | External audit without claiming generator internals or execution |
+| Multimedia metadata and annotation | Time points, parts, props, actions, and timed text can be located on audiovisual timelines | Plan-scoped continuity obligations plus content-bound checkpoint/span evidence and derived status |
+| Temporal logic and runtime verification | Formal properties can be evaluated across ordered traces or continuous signals | Human-evidence audit over rendered media; the alpha is not a temporal-logic parser or model checker |
 
 ## 5. The proposed synthesis
 
