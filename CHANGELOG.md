@@ -1,5 +1,19 @@
 # Changelog
 
+## Unreleased
+
+- Add an opt-in, model-neutral function-tool host for `cml_plan_seal` and
+  `cml_status_derive`.
+- Confine model-supplied source paths to a host-owned workspace after symlink
+  resolution; keep the ledger path under host control.
+- Preserve machine-readable compiler and schema failures while redacting
+  unexpected internal errors.
+- Serialize ledger access across wrapper instances in one Python process and
+  document the remaining cross-process single-writer requirement.
+- Add focused tests for path-prefix escape, arbitrary-store rejection,
+  unknown-operation rejection, error preservation, and non-mutating status
+  derivation.
+
 ## 0.1.0a1 — 2026-08-11
 
 Initial alpha publication candidate.
