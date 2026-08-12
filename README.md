@@ -13,7 +13,8 @@ prior records.
 **Version:** `0.1.0a1`  
 **Maturity:** research prototype / alpha  
 **Storage:** local JSONL  
-**Generator integration:** none
+**Generator integration:** none  
+**Model-tool integration:** optional host-side function wrapper; no hosted service
 
 Implemented canonical records:
 
@@ -123,6 +124,19 @@ cmltrust status
 
 Records append to `.cml-trust/records.jsonl` by default. Normal commands never
 rewrite earlier lines.
+
+## Optional model-tool wrapper
+
+`cml_trust.tool_host.CMLTrustToolHost` exposes two allow-listed operations for
+developer-controlled function-calling applications:
+
+- `cml_plan_seal`
+- `cml_status_derive`
+
+The host fixes the workspace and ledger paths; the model cannot execute shell
+commands or select an arbitrary store. See
+[`docs/MODEL-TOOL-INTEGRATION.md`](docs/MODEL-TOOL-INTEGRATION.md) for the exact
+boundary and its remaining single-writer-process requirement.
 
 ## Observation results
 
