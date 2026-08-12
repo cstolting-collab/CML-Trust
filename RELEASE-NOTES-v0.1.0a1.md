@@ -19,7 +19,7 @@ and spans separately so an observed interval failure remains visible.
 - append-only revocation and derived invalid lineage;
 - explicit incomplete, failed, and complete chain statuses;
 - offline browser reviewer for Operation Coffee Cup Run 006;
-- 26 passing offline tests;
+- 27 passing offline tests;
 - Gate 1–3 evidence summaries.
 
 ## Evidence result
@@ -40,8 +40,9 @@ study.
 - No automatic semantic identity proof.
 - No event evidence, bridge repair, residual ledger, or validator-fusion engine
   in this alpha.
-- PyPI publication deferred until the Python Adapter dependency is publicly
-  installable and verified.
+- The Python Adapter dependency is publicly available from PyPI and passed one
+  clean local installation-and-seal check. CML-Trust itself remains unpublished
+  on PyPI, and independent outsider installation is not yet demonstrated.
 
 ## Recommended release label
 
