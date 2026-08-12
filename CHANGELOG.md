@@ -23,5 +23,7 @@ Known limitations:
 - No trusted timestamps or tamper-proof storage.
 - No event-evidence, repair-plan, or residual-ledger implementation.
 - No statistical reviewer-reliability claim.
-- PyPI publication blocked until the Python adapter dependency is publicly
-  installable and verified.
+- CML-Trust is not published on PyPI and has not completed independent outsider
+  installation or its full platform matrix. The Python adapter dependency is
+  publicly available and has passed one clean local installation-and-seal
+  verification.
