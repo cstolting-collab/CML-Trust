@@ -1,0 +1,58 @@
+{
+  "inv_001": {
+    "statement": "The woman's identity, face, hair, clothing, earrings, necklace, and body proportions remain appearance-continuous.",
+    "strength": "hard",
+    "scope": "both",
+    "required_for_completeness": true,
+    "governs": "always"
+  },
+  "inv_002": {
+    "statement": "Exactly one appearance-continuous coffee cup remains, preserving its white ceramic body, dark rim, single handle, coffee-bean emblem, shape, size, orientation logic, and scale.",
+    "strength": "hard",
+    "scope": "both",
+    "required_for_completeness": true,
+    "governs": "always"
+  },
+  "inv_003": {
+    "statement": "Both hands preserve plausible anatomy and finger count without fused, missing, duplicated, or newly appearing fingers.",
+    "strength": "hard",
+    "scope": "both",
+    "required_for_completeness": true,
+    "governs": "always"
+  },
+  "inv_004": {
+    "statement": "The room, window, plant, bookcase, chair, lighting direction, background geometry, framing, and camera orientation remain continuous.",
+    "strength": "hard",
+    "scope": "both",
+    "required_for_completeness": true,
+    "governs": "always"
+  },
+  "inv_005": {
+    "statement": "At the opening checkpoint, the cup is held only by the woman's anatomical left hand on screen-right through the original single handle, while her anatomical right hand on screen-left is open, empty, visible, and separated from the cup.",
+    "strength": "hard",
+    "scope": "node",
+    "required_for_completeness": true,
+    "governs": "always"
+  },
+  "inv_006": {
+    "statement": "The complete left-to-right anatomical transfer path is visible: the anatomical right hand approaches from screen-left, grips the lower side of the same cup, both hands briefly contact that one cup, and the anatomical left hand visibly releases before moving away empty.",
+    "strength": "hard",
+    "scope": "span",
+    "required_for_completeness": true,
+    "governs": "always"
+  },
+  "inv_007": {
+    "statement": "At the final checkpoint, the anatomical right hand on screen-left is the sole cup holder using a side grip, while the anatomical left hand on screen-right is open, empty, visible, and separated for at least two seconds.",
+    "strength": "hard",
+    "scope": "node",
+    "required_for_completeness": true,
+    "governs": "always"
+  },
+  "inv_008": {
+    "statement": "The shot remains continuous and the transfer is not hidden by a cut, dissolve, loop, occlusion, heavy blur, body obstruction, reframing, viewpoint reversal, or frame exit.",
+    "strength": "hard",
+    "scope": "span",
+    "required_for_completeness": true,
+    "governs": "always"
+  }
+}
