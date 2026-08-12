@@ -1,0 +1,49 @@
+{
+  "kind": "pregeneration_seal_manifest_noncanonical",
+  "experiment_id": "operation_coffee_cup_run007",
+  "plan_id": "run007_pregen_plan_001",
+  "state": "sealed_awaiting_external_generation",
+  "sealed_at_local_untrusted": "2026-08-12T02:54:11.256263+00:00",
+  "ordering_authority": "local_records_only_untrusted_time",
+  "generation_started_at_snapshot": false,
+  "sealed_inputs": {
+    "cml_plan": {
+      "path": "operation-coffee-cup-run007.cml",
+      "sha256": "3b80cf4fefa0cc90b2974db25e45fa8513b230981f97182ed86d4315980ade53"
+    },
+    "invariant_table": {
+      "path": "invariants.json",
+      "sha256": "9b0d73c6640e1569f5d149d84711597583345223a4fd81a717026c1db7495f25"
+    },
+    "generation_prompt": {
+      "path": "generation-prompt.txt",
+      "sha256": "df340b391285aba67a2b8953850b11007f216693155685cea14c3709ee772cd8"
+    },
+    "source_image": {
+      "path": "source-image-run007.png",
+      "sha256": "9e31b0625021411dc21f8693a31736814941e54db29a36775e25fc15bf0c17ca",
+      "provenance": "identity-preserving edit made before plan sealing",
+      "original_input_sha256": "2d7ef8a70ff2552eb0bff9d75d1461ff1b57eaf746a569a0b69df4b1896771d2"
+    }
+  },
+  "sealed_outputs": {
+    "ir_sha256": "dbe0753539fc1c721729b257bcdb46d41209f92b93f786784cd9d5768358ded2",
+    "compiler_id": "cml-reference-compiler",
+    "compiler_version": "1.1.0-rc.2 (CML 1.0.0)",
+    "compiler_entry_sha256": "a236635e7f4455ea067882205fe8e44cff2fb1992431ac6b6ca21df822992ab8",
+    "initial_record_log": {
+      "path": "records.jsonl",
+      "sha256": "c7dad5b511ff8fd1a3d5f33b37be72264ee83dbce85ccbb1011f71ae382e49fa",
+      "record_count": 1
+    }
+  },
+  "claim_boundary": {
+    "supported_if_completed": "The unchanged compile-valid audit plan and generation inputs were locally sealed before the external generation job was initiated, then used for post-generation review.",
+    "not_claimed": [
+      "The generator consumed or executed CML.",
+      "The local timestamp is independently trusted.",
+      "The sealed plan guarantees the resulting video will pass.",
+      "Hashes prove semantic correctness or physical identity."
+    ]
+  }
+}

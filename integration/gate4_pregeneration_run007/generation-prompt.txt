@@ -1,0 +1,49 @@
+OPERATION COFFEE CUP — RUN 007
+PRE-GENERATION SEALED TRANSFER TEST
+
+Use the supplied source image as the exact opening state.
+
+Create one continuous 8–10 second shot.
+
+OPENING STATE
+
+The cup begins held only by the hand on the viewer's right—the woman's anatomical left hand—through the cup's original single handle.
+
+The hand on the viewer's left—the woman's anatomical right hand—begins open, empty, fully visible, and clearly separated from the cup.
+
+Hold this opening state for approximately one second before movement begins.
+
+ACTION
+
+1. Move the open anatomical right hand from the viewer's left toward the lower side of the cup.
+2. Grip the lower side of the same cup body with that receiving hand. Do not create or use a second handle, and do not support the cup from underneath with a flat palm.
+3. Show both hands briefly contacting the same single cup.
+4. The original handle-holding anatomical left hand must visibly open its fingers and release the handle.
+5. Move the released anatomical left hand toward the viewer's right, completely away from the cup.
+6. Move the cup approximately 15–20 centimeters toward the viewer's left.
+7. End with the cup held only by the woman's anatomical right hand using the side grip.
+8. Keep the released anatomical left hand open, empty, visible, and separated from the cup.
+9. Hold the completed final state motionless for at least two seconds.
+
+The receiving hand must take sole control of the cup. The original handle-holding hand must completely release it. Do not reverse or repeat the transfer.
+
+Show the entire transfer path. Do not hide any part of it behind blur, occlusion, body obstruction, camera movement, a cut, or frame exit.
+
+Preserve exactly:
+
+- the same woman, face, expression, hair, earrings, necklace, clothing, and body proportions
+- plausible hand anatomy and finger count
+- exactly one white ceramic coffee cup with the same dark rim, single handle, coffee-bean emblem, size, shape, orientation logic, and scale
+- the room, window, plant, bookcase, chair, lighting direction, background geometry, framing, and camera orientation
+
+No cuts, dissolves, double exposure, loops, reframing, or viewpoint reversal.
+No duplicate, disappearing, replacement, or morphing cup.
+No second cup handle.
+No fused, missing, duplicated, or extra fingers.
+No identity, clothing, lighting, or background change.
+Do not drink from or raise the cup toward the mouth.
+No dialogue.
+
+Soft natural birds may remain quietly audible in the background.
+
+End immediately after the right-hand-only final state has remained fully visible for at least two seconds.
