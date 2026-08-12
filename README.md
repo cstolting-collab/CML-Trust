@@ -64,31 +64,48 @@ It does not prove:
 - CML Reference Compiler available locally
 - `cml-python-adapter` 0.1.2 or a compatible 0.1.x release
 
-### Publication limitation
+### Distribution status
 
-The alpha wheel builds successfully, but PyPI installation is intentionally
-blocked until `cml-python-adapter` is independently published and verified as a
-publicly installable dependency. Until then, use a local adapter checkout or an
-approved source installation.
+`cml-python-adapter` 0.1.2 is publicly available from PyPI. A clean local
+Python 3.12 environment successfully installed that adapter and the
+`cml-trust` 0.1.0a1 wheel, then completed a real plan seal through CML
+Reference Compiler `1.1.0-rc.2`.
+
+`cml-trust` itself is not currently published on PyPI. The clean verification
+used a locally built alpha wheel and a local trusted compiler checkout, so it
+is not an independent outsider-installation result. See
+[`docs/INSTALL-VALIDATION.md`](docs/INSTALL-VALIDATION.md).
 
 ## Development setup
 
-From the `cml-trust` directory, with the Python adapter source available in a
-sibling directory:
+Create an isolated environment and install the public adapter plus this
+checkout:
 
 ```text
-PYTHONPATH=src:../src python -m unittest discover -s tests -v
+python -m venv .venv
+python -m pip install cml-python-adapter==0.1.2
+python -m pip install -e .
+```
+
+From the `cml-trust` directory, run the test suite:
+
+```text
+python -m unittest discover -s tests -v
 ```
 
 For a real plan seal, point the adapter at the local reference compiler:
 
 ```text
 CML_COMPILER_DIR=../reference-compiler \
-PYTHONPATH=src:../src \
-python -m cml_trust.cli plan seal scene.cml \
+cmltrust plan seal scene.cml \
   --id plan_001 \
   --invariants invariants.json
 ```
+
+The compiler path identifies JavaScript executed with the current user's
+permissions. Use only a trusted compiler checkout. The recorded seal time is a
+local, untrusted clock value; it is not cryptographic proof of when the plan
+existed.
 
 ## Minimal CLI workflow
 
@@ -153,6 +170,11 @@ review**.
   two-handle defect near the same transfer region
 
 Gate 3 is one independent reviewer, not a statistical validation study.
+
+The next evidence gate is a genuinely pre-generation seal followed by a new
+external render and complete observation cycle. The protocol is documented in
+[`docs/PREGENERATION-SEAL-PROTOCOL.md`](docs/PREGENERATION-SEAL-PROTOCOL.md);
+no successful result is claimed yet.
 
 ## Tests
 

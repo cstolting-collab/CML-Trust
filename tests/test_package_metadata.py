@@ -35,6 +35,18 @@ class PackageMetadataTests(unittest.TestCase):
         self.assertIn("Development Status :: 3 - Alpha", metadata["project"]["classifiers"])
         self.assertIn("a", metadata["project"]["version"])
 
+    def test_public_repository_urls_are_declared(self) -> None:
+        metadata = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
+        urls = metadata["project"]["urls"]
+        self.assertEqual(
+            urls["Source"],
+            "https://github.com/cstolting-collab/CML-Trust",
+        )
+        self.assertEqual(
+            urls["Issues"],
+            "https://github.com/cstolting-collab/CML-Trust/issues",
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

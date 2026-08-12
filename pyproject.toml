@@ -23,6 +23,10 @@ classifiers = [
 ]
 dependencies = ["cml-python-adapter>=0.1.2,<0.2"]
 
+[project.urls]
+Source = "https://github.com/cstolting-collab/CML-Trust"
+Issues = "https://github.com/cstolting-collab/CML-Trust/issues"
+
 [project.scripts]
 cmltrust = "cml_trust.cli:main"
 

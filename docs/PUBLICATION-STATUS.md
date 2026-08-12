@@ -16,21 +16,30 @@ Do not publish to PyPI yet.
 - The evidence-gate reports distinguish engineering results from media claims.
 - The browser review form removes the manual-JSON usability failure.
 
-## Why PyPI remains blocked
+## Dependency verification completed
 
-`cml-trust` depends on `cml-python-adapter>=0.1.2,<0.2`. Public PyPI
-availability and clean installation of that dependency have not been verified.
-Publishing the dependent package first could produce an installable-looking
-release that fails dependency resolution for ordinary users.
+`cml-trust` depends on `cml-python-adapter>=0.1.2,<0.2`. Adapter version 0.1.2
+is publicly available from PyPI. On 2026-08-11, a fresh local Python 3.12
+environment installed the public adapter and the locally built CML-Trust alpha
+wheel, then completed a real seal through CML Reference Compiler
+`1.1.0-rc.2`.
 
-Required before PyPI:
+This closes the former “adapter unavailable” blocker. It does not establish an
+independent outsider installation, a public CML-Trust distribution install, or
+cross-platform support. See [`INSTALL-VALIDATION.md`](INSTALL-VALIDATION.md).
 
-1. Publish or otherwise provide a stable public Python Adapter distribution.
-2. Test a clean environment install using only documented public sources.
-3. Run a real compiler seal from that clean environment.
-4. Test Python 3.10, 3.11, 3.12, and 3.13 on supported operating systems.
-5. Add repository URLs to package metadata after the canonical repository
-   exists.
+## Why CML-Trust PyPI publication remains deferred
+
+Required before PyPI publication:
+
+1. Install CML-Trust from its actual public release artifact, not a local wheel.
+2. Have a person outside the development sessions follow only the published
+   instructions.
+3. Run a real compiler seal in that outsider environment.
+4. Test Python 3.10, 3.11, 3.12, and 3.13 across the supported operating-system
+   matrix.
+
+Repository source and issue URLs are now declared in package metadata.
 
 ## Implemented alpha surface
 
@@ -58,3 +67,10 @@ AI-assisted review.
 
 Do not convert that into a claim of statistical validation, generator control,
 or improved generation quality.
+
+## Next evidence gate
+
+Run one new artifact from a plan sealed before generation, then publish the
+plan record, media/extraction hashes, checkpoint results, span reviews, and any
+failures. The exact procedure and claim boundary are documented in
+[`PREGENERATION-SEAL-PROTOCOL.md`](PREGENERATION-SEAL-PROTOCOL.md).
