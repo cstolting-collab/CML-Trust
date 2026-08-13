@@ -1,20 +1,24 @@
 # Publication status — 0.1.0a1
 
-## Recommended channel
+## Release channel
 
-Publish first as a **GitHub pre-release source package** labeled research
-prototype / alpha.
+CML-Trust 0.1.0a1 is distributed as a **GitHub pre-release source package**
+labeled research prototype / alpha.
 
-Do not publish to PyPI yet.
+It is not published on PyPI.
 
-## Why GitHub alpha is acceptable
+## Why the GitHub alpha is acceptable
 
 - Core source is present and locally testable.
 - Apache-2.0 license, NOTICE, and third-party notice are present.
-- The implemented record kinds and non-goals are disclosed.
-- A wheel builds locally.
+- The implemented record kinds, reserved kinds, and non-goals are disclosed.
+- A universal wheel builds locally.
 - The evidence-gate reports distinguish engineering results from media claims.
+- Run 007 completed the documented pre-generation seal procedure and preserves
+  its failed observational result without converting it into a success claim.
 - The browser review form removes the manual-JSON usability failure.
+- The optional model-tool wrapper uses allow-listed operations and host-owned
+  workspace and ledger paths.
 
 ## Dependency verification completed
 
@@ -32,14 +36,15 @@ cross-platform support. See [`INSTALL-VALIDATION.md`](INSTALL-VALIDATION.md).
 
 Required before PyPI publication:
 
-1. Install CML-Trust from its actual public release artifact, not a local wheel.
+1. Install CML-Trust from its actual public GitHub release artifact, not a local
+   wheel.
 2. Have a person outside the development sessions follow only the published
    instructions.
 3. Run a real compiler seal in that outsider environment.
 4. Test Python 3.10, 3.11, 3.12, and 3.13 across the supported operating-system
    matrix.
 
-Repository source and issue URLs are now declared in package metadata.
+Repository source and issue URLs are declared in package metadata.
 
 ## Implemented alpha surface
 
@@ -50,6 +55,8 @@ Repository source and issue URLs are now declared in package metadata.
 - revocation and derived invalid lineage
 - derived checkpoint and chain status
 - offline Run 006 browser review
+- host-side `cml_plan_seal` and `cml_status_derive` tool wrapper
+- compact Run 007 pre-generation evidence bundle
 
 ## Reserved, not implemented
 
@@ -59,18 +66,37 @@ Repository source and issue URLs are now declared in package metadata.
 - multi-reviewer fusion or reliability scoring
 - automatic video editing or generator integration
 
-## Evidence claim allowed at publication
+## Evidence claims allowed at publication
 
-One blind human independently identified the central transient two-handle
-continuity defect in Run 006 near the same transfer region as the first
-AI-assisted review.
+Run 006 supports the narrow statement that full-interval review detected a
+transient two-handle continuity defect that clean endpoint samples missed, and
+one blind human independently identified the same central defect near the same
+transfer region.
 
-Do not convert that into a claim of statistical validation, generator control,
-or improved generation quality.
+Run 007 supports the narrow statement that the plan and exact generation inputs
+were locally sealed before submission according to the published procedure,
+then every-frame review found a failed transfer interval despite readable
+opening and final states. One blind human review reported the same two-handle
+failure class.
 
-## Next evidence gate
+Neither result establishes generator conformance, causal improvement from CML,
+trusted chronology, statistical reliability, or provider adoption.
 
-Run one new artifact from a plan sealed before generation, then publish the
-plan record, media/extraction hashes, checkpoint results, span reviews, and any
-failures. The exact procedure and claim boundary are documented in
-[`PREGENERATION-SEAL-PROTOCOL.md`](PREGENERATION-SEAL-PROTOCOL.md).
+## Known alpha limitations
+
+- `trust.v1` supports only `governs: always`; checkpoint-specific applicability
+  cannot yet be represented.
+- The JSONL store has no cross-process lock and requires one writer process or
+  external locking.
+- Local `sealed_at` values are untrusted clock readings.
+- The Run 007 source image, result MP4, and 241-frame extraction cache are
+  omitted from Git; their SHA-256 bindings remain published.
+- No automated generator integration exists.
+
+## Next validation gates
+
+1. Independent installation from the public GitHub release artifact.
+2. Real compiler sealing in that outsider environment.
+3. Python 3.10–3.13 and cross-platform verification.
+4. Additional artifacts and independent reviewers before any reliability or
+   quality-improvement claim.

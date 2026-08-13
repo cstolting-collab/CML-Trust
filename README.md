@@ -72,9 +72,10 @@ Python 3.12 environment successfully installed that adapter and the
 `cml-trust` 0.1.0a1 wheel, then completed a real plan seal through CML
 Reference Compiler `1.1.0-rc.2`.
 
-`cml-trust` itself is not currently published on PyPI. The clean verification
-used a locally built alpha wheel and a local trusted compiler checkout, so it
-is not an independent outsider-installation result. See
+`cml-trust` 0.1.0a1 is distributed as a GitHub alpha pre-release source
+package. It is not published on PyPI. The clean verification used a locally
+built alpha wheel and a local trusted compiler checkout, so it is not an
+independent outsider-installation result. See
 [`docs/INSTALL-VALIDATION.md`](docs/INSTALL-VALIDATION.md).
 
 ## Development setup
@@ -182,13 +183,19 @@ review**.
 - **Gate 2:** full-frame Run 006 audit; clean endpoints with a failed interval
 - **Gate 3:** one blind human independently replicated the central transient
   two-handle defect near the same transfer region
+- **Gate 4:** Run 007 plan and generation inputs were locally sealed before
+  submission, followed by a new external render, every-frame audit, canonical
+  ledger, hash manifest, and one blind human review
 
-Gate 3 is one independent reviewer, not a statistical validation study.
+Gate 4 derived `observational_chain_failed`: the opening and final states were
+readable, but a second cup handle formed during transfer, the receiving hand
+used that emergent handle instead of the sealed side grip, and the released
+hand remained closed.
 
-The next evidence gate is a genuinely pre-generation seal followed by a new
-external render and complete observation cycle. The protocol is documented in
-[`docs/PREGENERATION-SEAL-PROTOCOL.md`](docs/PREGENERATION-SEAL-PROTOCOL.md);
-no successful result is claimed yet.
+These are bounded artifact-level findings. The local seal is not trusted time,
+the generator is not shown to have consumed CML, and one blind reviewer is not
+a statistical validation study. See
+[`integration/gate4_pregeneration_run007/`](integration/gate4_pregeneration_run007/).
 
 ## Tests
 
