@@ -197,6 +197,17 @@ the generator is not shown to have consumed CML, and one blind reviewer is not
 a statistical validation study. See
 [`integration/gate4_pregeneration_run007/`](integration/gate4_pregeneration_run007/).
 
+## Engineering performance evidence rule
+
+Optimization work follows a standing real-workload evidence rule. Passing CI can
+verify implementation and benchmark-harness integrity, but a performance claim
+is not considered verified until a supported workload has run with correctness
+parity, exact environment identity, repeated baseline/treatment measurements,
+startup treatment, and distribution reporting.
+
+See
+[`docs/REAL-WORKLOAD-PERFORMANCE-EVIDENCE.md`](docs/REAL-WORKLOAD-PERFORMANCE-EVIDENCE.md).
+
 ## Tests
 
 ```text
