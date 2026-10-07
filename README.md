@@ -58,6 +58,28 @@ It does not prove:
 - that CML improves generation quality;
 - release eligibility under an unnamed “trusted” Boolean.
 
+## Replayable accept/reject fixture
+
+A minimal checked-in fixture exercises one rejected locked-field proposal and one
+accepted proposal after an authorized unlock. Evaluation is read-only: the
+rejected proposal must leave canonical state unchanged, and even an accepted
+evaluation does not mutate canonical state until an explicit commit.
+
+Run it from the repository root:
+
+```text
+node examples/replay-fixture/replay.mjs
+```
+
+Inputs and expected verdicts are checked in beside the replay script:
+
+- `examples/replay-fixture/input.json`
+- `examples/replay-fixture/expected.json`
+
+The command exits nonzero on any verdict or canonical-state mismatch and prints
+`REPLAY FIXTURE: PASS` only after the reject, accept, and explicit commit
+checks all match the expected fixture.
+
 ## Requirements
 
 - Python 3.10–3.13
