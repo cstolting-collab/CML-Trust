@@ -1,22 +1,58 @@
-# cml-trust
+# CML Trust
 
-`cml-trust` is an alpha-stage, local evidence notebook for recording external
-continuity observations against a compile-valid CML audit plan.
+**A research prototype for evidence-bound continuity evaluation and state-transition review**
 
-It is deliberately narrower than a “trust engine.” It hashes plans and media
-evidence, stores append-only observations, separates checkpoint state from
-interval coverage, derives status, and preserves revocations without rewriting
-prior records.
+[![Status: Research Alpha](https://img.shields.io/badge/status-research%20alpha-555555)](#project-status)
+[![Python 3.10–3.13](https://img.shields.io/badge/python-3.10%E2%80%933.13-555555)](https://www.python.org/)
+[![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-555555)](LICENSE)
 
-## Status
+CML Trust is an open research prototype for recording, preserving, and evaluating external continuity evidence against a compile-valid CML audit plan.
 
-**Version:** `0.1.0a1`  
-**Maturity:** research prototype / alpha  
-**Storage:** local JSONL  
-**Generator integration:** none  
-**Model-tool integration:** optional host-side function wrapper; no hosted service
+The project is intentionally narrow. It does **not** attempt to prove that a generator executed CML, establish physical identity, infer unseen states, or replace formal verification. Its purpose is to make continuity observations explicit, reproducible, inspectable, and resistant to silent state rewriting.
 
-Implemented canonical records:
+---
+
+## Research question
+
+**Can a small, explicit evidence layer improve the auditability of long-horizon state transitions without allowing evaluation itself to rewrite the state being evaluated?**
+
+CML Trust approaches that question by separating:
+
+```text
+declared plan
+    ↓
+sealed inputs
+    ↓
+external observation
+    ↓
+noncanonical evidence
+    ↓
+derived evaluation
+    ↓
+explicit commit / revocation boundary
+```
+
+The central design rule is simple:
+
+> **Observation is evidence. Evidence is not canonical state.**
+
+---
+
+## Current research scope
+
+| Area | Current alpha behavior |
+|---|---|
+| Plan integrity | Records compile-valid CML plans and associated hashes |
+| Evidence integrity | Records SHA-256 identities for plans, media, frames, and review artifacts |
+| Checkpoint review | Stores explicit observation outcomes at selected states |
+| Interval review | Records whether required continuity coverage exists between checkpoints |
+| Failure handling | Preserves directly observed hard failures |
+| Revocation | Appends revocations without rewriting earlier records |
+| Derived status | Computes current status from the evidence ledger |
+| Model integration | Provides a constrained host-side function wrapper |
+| Storage | Local append-only JSONL |
+
+### Canonical record types implemented
 
 - `sealed_plan`
 - `extract_manifest`
@@ -24,132 +60,63 @@ Implemented canonical records:
 - `span_review`, including `review_type: boundary_window`
 - `revocation`
 
-Reserved but intentionally rejected in this alpha:
+Reserved record types that are **not implemented** are rejected fail-closed with `POLICY_BLOCK` rather than silently treated as supported features.
 
-- `event_evidence`
-- `repair_plan`
-- `residual_ledger_entry`
+---
 
-Reserved kinds fail closed with `POLICY_BLOCK`; they are not silently accepted
-or represented as finished features.
+## What the prototype can establish
 
-## What it can establish
+Given supplied artifacts and reviewer observations, the current alpha can establish that:
 
-Given the supplied evidence and fallible reviewer observations, the current
-alpha can establish that:
+1. a CML audit plan compiled successfully through the reference compiler;
+2. recorded source, IR, media, and reviewed frame bytes match stored SHA-256 values;
+3. checkpoint observations were recorded using explicit result enums;
+4. adjacent checkpoint intervals have or lack required review coverage;
+5. a directly observed hard failure blocks an observational chain;
+6. revocation and descendant invalidation remain append-only and derived.
 
-- a CML audit plan compiled successfully through the reference compiler;
-- source, IR, video, and reviewed frame bytes match recorded SHA-256 values;
-- individual checkpoint states were observed with explicit result enums;
-- adjacent checkpoint intervals have or lack required span coverage;
-- a directly observed hard failure blocks an observational chain;
-- revocations and descendant invalidation remain append-only and derived.
+These are **artifact-level findings**. They are not claims about hidden generator internals or unobserved state.
 
-## What it does not establish
+---
 
-It does not prove:
+## What the prototype does not establish
+
+CML Trust does not prove:
 
 - that a generator executed CML;
-- that a post-generation audit plan existed before generation;
+- that an audit plan existed before generation without an independently trusted timestamp;
 - physical identity of a person or object;
 - truth of unobserved frames;
 - perfect human or machine semantic judgment;
-- trusted timestamps or tamper-proof local storage;
+- tamper-proof local storage;
 - that CML improves generation quality;
-- release eligibility under an unnamed “trusted” Boolean.
+- release eligibility under an unspecified “trusted” Boolean;
+- equivalence to theorem proving or formal verification.
 
-## Requirements
+This boundary is deliberate.
 
-- Python 3.10–3.13
-- Node.js 18.19 or newer
-- CML Reference Compiler available locally
-- `cml-python-adapter` 0.1.2 or a compatible 0.1.x release
+---
 
-### Distribution status
+## Evidence model
 
-`cml-python-adapter` 0.1.2 is publicly available from PyPI. A clean local
-Python 3.12 environment successfully installed that adapter and the
-`cml-trust` 0.1.0a1 wheel, then completed a real plan seal through CML
-Reference Compiler `1.1.0-rc.2`.
-
-`cml-trust` 0.1.0a1 is distributed as a GitHub alpha pre-release source
-package. It is not published on PyPI. The clean verification used a locally
-built alpha wheel and a local trusted compiler checkout, so it is not an
-independent outsider-installation result. See
-[`docs/INSTALL-VALIDATION.md`](docs/INSTALL-VALIDATION.md).
-
-## Development setup
-
-Create an isolated environment and install the public adapter plus this
-checkout:
+Observation results are explicit:
 
 ```text
-python -m venv .venv
-python -m pip install cml-python-adapter==0.1.2
-python -m pip install -e .
+observed_pass
+observed_fail
+unobserved
+uncertain
+not_applicable
+not_checked
 ```
 
-From the `cml-trust` directory, run the test suite:
+For this alpha:
 
-```text
-python -m unittest discover -s tests -v
-```
+- occlusion is represented as `unobserved`;
+- `not_applicable` is rejected for invariants declared as always governing;
+- directly observed hard failure is not downgraded because coverage elsewhere is incomplete.
 
-For a real plan seal, point the adapter at the local reference compiler:
-
-```text
-CML_COMPILER_DIR=../reference-compiler \
-cmltrust plan seal scene.cml \
-  --id plan_001 \
-  --invariants invariants.json
-```
-
-The compiler path identifies JavaScript executed with the current user's
-permissions. Use only a trusted compiler checkout. The recorded seal time is a
-local, untrusted clock value; it is not cryptographic proof of when the plan
-existed.
-
-## Minimal CLI workflow
-
-```text
-cmltrust plan seal scene.cml --id plan_001 --invariants invariants.json
-cmltrust extract register extract-descriptor.json
-cmltrust checkpoint add --id C1 --plan plan_001 \
-  --frame frames/000001.png --results C1-results.json --reviewer reviewer_1
-cmltrust checkpoint add --id C2 --plan plan_001 --parent C1 \
-  --frame frames/000100.png --results C2-results.json --reviewer reviewer_1
-cmltrust span add --id S1 --plan plan_001 --from C1 --to C2 \
-  --coverage every_frame --results S1-results.json --reviewer reviewer_1
-cmltrust status
-```
-
-Records append to `.cml-trust/records.jsonl` by default. Normal commands never
-rewrite earlier lines.
-
-## Optional model-tool wrapper
-
-`cml_trust.tool_host.CMLTrustToolHost` exposes two allow-listed operations for
-developer-controlled function-calling applications:
-
-- `cml_plan_seal`
-- `cml_status_derive`
-
-The host fixes the workspace and ledger paths; the model cannot execute shell
-commands or select an arbitrary store. See
-[`docs/MODEL-TOOL-INTEGRATION.md`](docs/MODEL-TOOL-INTEGRATION.md) for the exact
-boundary and its remaining single-writer-process requirement.
-
-## Observation results
-
-```text
-observed_pass | observed_fail | unobserved |
-uncertain | not_applicable | not_checked
-```
-
-Occlusion is `unobserved`, never `not_applicable`. For this alpha,
-`not_applicable` is rejected on invariants declared as always governing.
-
-Project status distinguishes:
+Derived project status is one of:
 
 ```text
 checkpoint_samples_only
@@ -158,67 +125,211 @@ observational_chain_failed
 observational_chain_complete
 ```
 
-A directly observed hard failure is never downgraded to
-`coverage_incomplete`, even when the same review has limited coverage.
+---
 
-## Human review form
+## Reproducibility
 
-`review/operation-coffee-cup-run006-review.html` is a self-contained browser
-form for the Run 006 replication artifact. It:
+### Requirements
 
-- makes no network requests;
-- verifies the selected MP4 using SHA-256 in the browser;
-- separates opening and final holder questions;
-- distinguishes anatomical from screen-relative hand labels;
-- requires descriptions and approximate times for failed or uncertain claims;
-- exports one completed JSON submission with a single button.
+- Python 3.10–3.13
+- Node.js 18.19 or newer
+- CML Reference Compiler available locally
+- `cml-python-adapter` 0.1.2 or compatible 0.1.x
 
-Open the HTML file in a modern browser, select the matching Run 006 MP4
-(distributed separately), complete the review, and choose **Save completed
-review**.
+### Install for development
 
-## Evidence gates completed
+```bash
+python -m venv .venv
+python -m pip install cml-python-adapter==0.1.2
+python -m pip install -e .
+```
 
-- **Gate 1:** real compiler and Python adapter integration
-- **Gate 2:** full-frame Run 006 audit; clean endpoints with a failed interval
-- **Gate 3:** one blind human independently replicated the central transient
-  two-handle defect near the same transfer region
-- **Gate 4:** Run 007 plan and generation inputs were locally sealed before
-  submission, followed by a new external render, every-frame audit, canonical
-  ledger, hash manifest, and one blind human review
+### Run the test suite
 
-Gate 4 derived `observational_chain_failed`: the opening and final states were
-readable, but a second cup handle formed during transfer, the receiving hand
-used that emergent handle instead of the sealed side grip, and the released
-hand remained closed.
-
-These are bounded artifact-level findings. The local seal is not trusted time,
-the generator is not shown to have consumed CML, and one blind reviewer is not
-a statistical validation study. See
-[`integration/gate4_pregeneration_run007/`](integration/gate4_pregeneration_run007/).
-
-## Engineering performance evidence rule
-
-Optimization work follows a standing real-workload evidence rule. Passing CI can
-verify implementation and benchmark-harness integrity, but a performance claim
-is not considered verified until a supported workload has run with correctness
-parity, exact environment identity, repeated baseline/treatment measurements,
-startup treatment, and distribution reporting.
-
-See
-[`docs/REAL-WORKLOAD-PERFORMANCE-EVIDENCE.md`](docs/REAL-WORKLOAD-PERFORMANCE-EVIDENCE.md).
-
-## Tests
-
-```text
+```bash
 python -m unittest discover -s tests -v
 ```
 
-The current suite covers schema rules, sealing, hashes, append-only revocation,
-lineage, missing spans, hard-failure precedence, extract manifests, and the
-self-contained browser review form.
+### Seal a plan
+
+```bash
+CML_COMPILER_DIR=../reference-compiler \
+cmltrust plan seal scene.cml \
+  --id plan_001 \
+  --invariants invariants.json
+```
+
+The compiler path identifies JavaScript executed with the current user's permissions. Use only a trusted compiler checkout.
+
+---
+
+## Minimal workflow
+
+```bash
+cmltrust plan seal scene.cml --id plan_001 --invariants invariants.json
+
+cmltrust extract register extract-descriptor.json
+
+cmltrust checkpoint add \
+  --id C1 \
+  --plan plan_001 \
+  --frame frames/000001.png \
+  --results C1-results.json \
+  --reviewer reviewer_1
+
+cmltrust checkpoint add \
+  --id C2 \
+  --plan plan_001 \
+  --parent C1 \
+  --frame frames/000100.png \
+  --results C2-results.json \
+  --reviewer reviewer_1
+
+cmltrust span add \
+  --id S1 \
+  --plan plan_001 \
+  --from C1 \
+  --to C2 \
+  --coverage every_frame \
+  --results S1-results.json \
+  --reviewer reviewer_1
+
+cmltrust status
+```
+
+Records append to `.cml-trust/records.jsonl` by default. Normal commands do not rewrite earlier lines.
+
+---
+
+## Reproducible public evidence
+
+The repository contains bounded public evidence rather than broad claims.
+
+### Completed evidence gates
+
+**Gate 1 — compiler / adapter integration**  
+Real CML Reference Compiler and Python adapter integration.
+
+**Gate 2 — full-frame audit**  
+Run 006 demonstrated clean endpoint observations with a failed interval.
+
+**Gate 3 — independent human replication**  
+One blind reviewer independently identified the central transient defect in the same transfer region.
+
+**Gate 4 — pre-generation seal protocol**  
+Run 007 preserved locally sealed plan and generation inputs before submission, followed by external rendering, every-frame audit, a canonical evidence ledger, hash manifest, and blind human review.
+
+Gate 4 derived `observational_chain_failed`. This remains a bounded artifact-level result: the local seal is not trusted time, the generator is not shown to have consumed CML, and one blind reviewer is not a statistical validation study.
+
+See:
+
+- [Evidence gates](docs/EVIDENCE-GATES.md)
+- [Pre-generation seal protocol](docs/PREGENERATION-SEAL-PROTOCOL.md)
+- [Publication status](docs/PUBLICATION-STATUS.md)
+- [Gate 4 public evidence](integration/gate4_pregeneration_run007/)
+- [Adjacent research and technical distinctions](docs/ADJACENT-RESEARCH-AND-TECHNICAL-DISTINCTIONS.md)
+
+---
+
+## Human review instrument
+
+`review/operation-coffee-cup-run006-review.html` is a self-contained browser review form for the Run 006 replication artifact.
+
+It:
+
+- makes no network requests;
+- verifies the selected MP4 by SHA-256 in the browser;
+- separates opening and final holder questions;
+- distinguishes anatomical from screen-relative hand labels;
+- requires descriptions and approximate times for failed or uncertain observations;
+- exports a completed JSON submission.
+
+The reviewed media artifact is distributed separately.
+
+---
+
+## Model-tool boundary
+
+`cml_trust.tool_host.CMLTrustToolHost` exposes two allow-listed host operations:
+
+- `cml_plan_seal`
+- `cml_status_derive`
+
+The host fixes workspace and ledger paths. A model cannot use this wrapper to execute arbitrary shell commands or select an arbitrary store.
+
+See [Model-tool integration](docs/MODEL-TOOL-INTEGRATION.md).
+
+---
+
+## Engineering evidence standard
+
+Performance work follows a standing real-workload evidence rule.
+
+Passing CI can establish implementation and benchmark-harness integrity, but a performance claim is not treated as verified until a supported workload has been tested with:
+
+- correctness parity;
+- exact environment identity;
+- repeated baseline and treatment measurements;
+- startup treatment;
+- distribution reporting.
+
+See [Real-workload performance evidence](docs/REAL-WORKLOAD-PERFORMANCE-EVIDENCE.md).
+
+---
+
+## Project status
+
+**Version:** `0.1.0a1`  
+**Maturity:** research prototype / alpha  
+**Storage:** local JSONL  
+**Generator integration:** none  
+**Hosted service:** none  
+**License:** Apache-2.0
+
+`cml-python-adapter` 0.1.2 is publicly available from PyPI. `cml-trust` 0.1.0a1 is currently distributed as a GitHub alpha pre-release source package and is not published on PyPI.
+
+See [Installation validation](docs/INSTALL-VALIDATION.md).
+
+---
+
+## Repository guide
+
+| Path | Purpose |
+|---|---|
+| `src/` | implementation |
+| `tests/` | unit and regression tests |
+| `examples/` | example CML and invariant inputs |
+| `integration/` | evidence-gate runs and results |
+| `review/` | self-contained human review instrument |
+| `docs/` | protocols, scope boundaries, and research notes |
+| `evidence/` | bounded public evidence bundles |
+
+---
+
+## Review and contribution
+
+Technical review is welcome, especially around:
+
+- state and evidence separation;
+- failure precedence;
+- revocation semantics;
+- lineage and recovery;
+- reproducibility;
+- adversarial cases;
+- terminology and scope boundaries.
+
+Issues should distinguish observed implementation behavior from proposals, hypotheses, or broader research interpretation.
+
+---
+
+## Authorship and attribution
+
+CML Trust is authored by **Sherrie Joseph** as part of ongoing CML research.
+
+The project does not claim invention of formal verification, invariants, state machines, provenance, append-only logs, or other established foundations on which this work depends. Adjacent work and technical distinctions are documented explicitly in [Adjacent research and technical distinctions](docs/ADJACENT-RESEARCH-AND-TECHNICAL-DISTINCTIONS.md).
+
+---
 
 ## License
 
-Software in this repository is licensed under the Apache License 2.0. See
-`LICENSE`, `NOTICE`, and `THIRD_PARTY_NOTICES`.
+Apache License 2.0. See [LICENSE](LICENSE), [NOTICE](NOTICE), and [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES).
