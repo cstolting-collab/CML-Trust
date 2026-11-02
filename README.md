@@ -45,7 +45,13 @@ Plan sealing requires the compiler setup described in [installation validation](
 python -m unittest discover -s tests -v
 ```
 
-This is the repository test command, not a claim that the suite was run during this documentation update.
+The suite includes a standalone illustrative state-transition fixture:
+
+```bash
+node examples/replay-fixture/replay.mjs
+```
+
+The fixture checks rejection without state mutation and acceptance followed by an explicit commit. It uses its own small model; it does not import the CML compiler or validate the Python evidence ledger. Compiler integration is covered separately by the installation and evidence-gate records below.
 
 ## Documentation
 

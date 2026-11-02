@@ -1,0 +1,17 @@
+{
+  "record": {
+    "id": "demo_01",
+    "revision": 1,
+    "values": { "identity": "alpha" },
+    "lockedFields": ["identity"]
+  },
+  "rejectCandidate": {
+    "recordRevision": 1,
+    "field": "identity",
+    "proposedValue": "beta"
+  },
+  "acceptCandidate": {
+    "field": "identity",
+    "proposedValue": "beta"
+  }
+}

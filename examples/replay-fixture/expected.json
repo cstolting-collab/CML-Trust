@@ -1,0 +1,30 @@
+{
+  "reject": {
+    "accepted": false,
+    "reason": "LOCKED_FIELD_CONFLICT",
+    "mutationApplied": false
+  },
+  "canonicalAfterReject": {
+    "revision": 1,
+    "values": { "identity": "alpha" },
+    "lockedFields": ["identity"]
+  },
+  "unlock": {
+    "accepted": true,
+    "reason": "AUTHORIZED_UNLOCK"
+  },
+  "accept": {
+    "accepted": true,
+    "reason": "ALLOWED_CHANGE",
+    "mutationApplied": false
+  },
+  "commit": {
+    "accepted": true,
+    "reason": "COMMITTED"
+  },
+  "canonicalFinal": {
+    "revision": 3,
+    "values": { "identity": "beta" },
+    "lockedFields": []
+  }
+}
