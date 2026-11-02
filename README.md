@@ -53,6 +53,10 @@ node examples/replay-fixture/replay.mjs
 
 The fixture checks rejection without state mutation and acceptance followed by an explicit commit. It uses its own small model; it does not import the CML compiler or validate the Python evidence ledger. Compiler integration is covered separately by the installation and evidence-gate records below.
 
+## Research question
+
+How can continuity observations remain inspectable without allowing evaluation to rewrite the state being evaluated? The [research overview](RESEARCH.md) describes the working model and its limits. The [public evidence guide](evidence/README.md) explains how to read preserved results.
+
 ## Documentation
 
 | Read | Purpose |
