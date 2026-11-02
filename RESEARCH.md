@@ -49,7 +49,7 @@ Start with:
 
 - [README](README.md)
 - [Evidence guide](evidence/README.md)
-- [Examples and reproduction guide](examples/README.md)
+- [Example inputs](examples/)
 - [Evidence gates](docs/EVIDENCE-GATES.md)
 - [Publication status](docs/PUBLICATION-STATUS.md)
 - [Adjacent research and technical distinctions](docs/ADJACENT-RESEARCH-AND-TECHNICAL-DISTINCTIONS.md)
